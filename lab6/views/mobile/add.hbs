@@ -1,0 +1,21 @@
+<form action="/mobile/add" method="post">
+   <h1>Add new mobile</h1>
+   Mobile model: <input type="text" name="model" id="" required>
+   <br><br>
+   Mobile image: <input type="url" name="image" id="" required>
+   <br><br>
+   Mobile color:
+   <input type="radio" name="color" value="Black"> Black
+   <input type="radio" name="color" value="White"> White
+   <input type="radio" name="color" value="Yellow"> Yellow
+   <input type="radio" name="color" value="Blue"> Blue
+   <br><br>
+   Mobile brand: <br>
+   <select name="brand">
+      {{#each brands }}
+      <option value="{{ _id }}"> {{ name }}</option>
+      {{/each}}
+   </select>
+   <br><br>
+   <input type="submit" value="Add">
+</form>

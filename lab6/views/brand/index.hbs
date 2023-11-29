@@ -1,3 +1,5 @@
+<a href="/brand/add">Add new brand</a>
+<br><br>
 <table border="1">
    <tr>
       <th>Brand name</th>
@@ -5,7 +7,11 @@
    </tr>
    {{#each brands }}
    <tr>
-      <td>{{ name }}</td>
+      <td>
+         <a href="/brand/detail/{{ _id }}">
+            {{ name }}
+         </a>
+      </td>
       <td>{{ country }}</td>
    </tr>
    {{/each}}
