@@ -12,6 +12,9 @@ var brandRouter = require('./routes/brand');
 
 var app = express();
 
+var hbs = require('hbs');
+hbs.registerHelper('equal', require('handlebars-helper-equal'))
+
 // 2. config 'mongoose' module
 var mongoose = require('mongoose');
 var uri = "mongodb+srv://longndt:7mVa9LRF8AGEPWfc@cloud.gyaoxey.mongodb.net/gch1107";

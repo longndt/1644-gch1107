@@ -1,0 +1,35 @@
+<form action="/mobile/edit/{{ mobile._id }}" method="post">
+   <h1>Edit mobile</h1>
+   Mobile model: <input type="text" name="model" id="" required value="{{ mobile.model }}">
+   <br><br>
+   Mobile image: <input type="url" name="image" id="" required value="{{ mobile.image }}">
+   <img src="{{ mobile.image }}" alt="" width="100" height="100">
+   <br><br>
+   Mobile color:
+   {{#equal mobile.color "Black"}}
+   <input type="radio" name="color" value="Black" checked="true"> Black
+   <input type="radio" name="color" value="White"> White
+   <input type="radio" name="color" value="Yellow"> Yellow
+   <input type="radio" name="color" value="Blue"> Blue
+   {{/equal}}
+   {{#equal mobile.color "White"}}
+   <input type="radio" name="color" value="Black"> Black
+   <input type="radio" name="color" value="White" checked="true"> White
+   <input type="radio" name="color" value="Yellow"> Yellow
+   <input type="radio" name="color" value="Blue"> Blue
+   {{/equal}}
+   {{#equal mobile.color "Yellow"}}
+   <input type="radio" name="color" value="Black" > Black
+   <input type="radio" name="color" value="White"> White
+   <input type="radio" name="color" value="Yellow" checked="true"> Yellow
+   <input type="radio" name="color" value="Blue"> Blue
+   {{/equal}}
+   {{#equal mobile.color "Blue"}}
+   <input type="radio" name="color" value="Black"> Black
+   <input type="radio" name="color" value="White"> White
+   <input type="radio" name="color" value="Yellow"> Yellow
+   <input type="radio" name="color" value="Blue"  checked="true"> Blue
+   {{/equal}}
+   <br><br>
+   <input type="submit" value="Edit">
+</form>
