@@ -1,0 +1,27 @@
+<a href="/mobile/add">Add new mobile</a>
+<br><br>
+<table border="1">
+   <tr>
+      <th>Mobile model</th>
+      <th>Mobile color</th>
+      <th>Mobile brand</th>
+      <th>Mobile image</th>
+      <th colspan="2">Menu</th>
+   </tr>
+   {{#each mobiles }}
+   <tr>
+      <td>{{ model }}</td>
+      <td>{{ color }}</td>
+      <td>{{ brand.name }}</td>
+      <td>
+         <img src="{{ image }}" alt="" width="100" height="120">
+      </td>
+      <td>
+         <a href="/mobile/edit/{{ _id }}">Edit</a>
+      </td>
+      <td>
+         <a href="/mobile/delete/{{ _id }}" onclick="return confirm('Are you sure to delete this mobile ?');">Delete</a>
+      </td>
+   </tr>
+   {{/each}}
+</table>
