@@ -10,6 +10,12 @@ router.get('/', async (req, res) => {
    res.render('mobile/index', { mobiles });
 })
 
+router.get('/customer', async (req, res) => {
+   var mobiles = await MobileModel.find({}).populate('brand');
+   //Path: views/mobile/index.hbs
+   res.render('mobile/list', { mobiles });
+})
+
 router.get('/add', async (req, res) => {
    var brands = await BrandModel.find({});
    res.render('mobile/add', { brands });

@@ -1,0 +1,16 @@
+<div class="container col-md-10 text-center">
+   <h1>Mobile Shop</h1>
+   <div class="card">
+      <div class="row">
+         {{#each mobiles }}
+         <div class="col-md-3">
+            <img class="card-img-top" src="{{ image }}" width="100" height="100">
+            <div class="card-body">
+               <h5 class="card-title">{{ model}}</h5>
+               <button class="btn btn-primary">Add to cart</button>
+            </div>
+         </div>
+         {{/each}}
+      </div>
+   </div>
+</div>

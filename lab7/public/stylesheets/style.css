@@ -6,3 +6,15 @@ body {
 a {
   color: #00B7FF;
 }
+
+.indam {
+  font-weight: bold;
+}
+
+.innghieng {
+   font-style : italic;
+}
+
+.gachchan {
+  text-decoration: underline;
+}
