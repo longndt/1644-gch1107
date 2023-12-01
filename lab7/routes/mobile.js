@@ -53,20 +53,20 @@ router.post('/edit/:id', async (req, res) => {
 
 router.get('/sort/asc', async (req, res) => {
    //SQL: SELECT * FROM mobiles ORDER BY model
-   var mobiles = await MobileModel.find().sort({ model: 1 });
+   var mobiles = await MobileModel.find().populate('brand').sort({ model: 1 });
    res.render('mobile/index', { mobiles })
 })
 
 router.get('/sort/desc', async (req, res) => {
    //SQL: SELECT * FROM mobiles ORDER BY model DESC
-   var mobiles = await MobileModel.find().sort({ model: -1 });
+   var mobiles = await MobileModel.find().populate('brand').sort({ model: -1 });
    res.render('mobile/index', { mobiles })
 })
 
 router.post('/search', async (req, res) => {
    var keyword = req.body.keyword;
    //SQL: SELECT * FROM mobiles WHERE model LIKE '%keyword%'
-   var mobiles = await MobileModel.find({ model: new RegExp(keyword , "i") });;
+   var mobiles = await MobileModel.find({ model: new RegExp(keyword, "i") }).populate('brand');
    res.render('mobile/index', { mobiles })
 })
 
