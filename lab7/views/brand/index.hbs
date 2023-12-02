@@ -3,7 +3,7 @@
 <br><br>
 <table class="table table-secondary">
    <tr>
-      <th class="">Brand name</th>
+      <th>Brand name</th>
       <th>Brand country</th>
       <th colspan="2">Menu</th>
    </tr>
@@ -16,10 +16,10 @@
       </td>
       <td>{{ country }}</td>
       <td>
-         <a href="/brand/edit/{{ _id }}">Edit</a>
+         <a class="btn btn-warning" href="/brand/edit/{{ _id }}">Edit</a>
       </td>
       <td>
-         <a href="/brand/delete/{{ _id }}"
+         <a class="btn btn-danger" href="/brand/delete/{{ _id }}"
          onclick="return confirm('Are you sure to delete this brand ?');"
          >Delete</a>
       </td>
