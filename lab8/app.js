@@ -7,20 +7,20 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-//READ ALL
+//READ ALL DATA
 app.get('/mobile', async (req, res) => {
    try {
-      const mobilesRef = collection(db, 'mobiles');  //notes: "mobiles" is collection (table) name
-      const mobilesSnapshot = await getDocs(mobilesRef);
-      const mobilesList = mobilesSnapshot.docs.map(doc => doc.data());
-      res.send(mobilesList);
+      const mobileRef = collection(db, 'mobiles');  //notes: "mobiles" is collection (table) name
+      const mobileSnapshot = await getDocs(mobileRef);
+      const mobileList = mobileSnapshot.docs.map(doc => doc.data());
+      res.send(mobileList);
    } catch (error) {
       console.error(error);
-      res.status(500).send("Error fetching mobiles data");
+      res.status(500).send("Error fetching mobiles data: " + error.message);
    }
 });
 
-//READ BY ID
+//READ DATA BY ID
 app.get('/mobile/:id', async (req, res) => {
    try {
       const { id } = req.params;
@@ -38,46 +38,45 @@ app.get('/mobile/:id', async (req, res) => {
    }
 });
 
-//CREATE
+//CREATE NEW DATA
 app.post('/mobile', async (req, res) => {
    try {
       const newMobile = req.body;
       const newDocRef = doc(collection(db, 'mobiles'));
       await setDoc(newDocRef, newMobile);
-      res.status(201).send({ id: newDocRef.id, ...newMobile });
+      res.status(201).send("Create new mobile succeed !");
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error creating a new mobile");
+      res.status(400).send("Error creating a new mobile: " + error.message);
    }
 });
 
-//UPDATE
+//UPDATE EXISTING DATA
 app.put('/mobile/:id', async (req, res) => {
    try {
       const { id } = req.params;
       const updatedData = req.body;
       const docRef = doc(db, 'mobiles', id);
       await updateDoc(docRef, updatedData);
-      res.send(`Mobile with ID ${id} updated`);
+      res.send('Update mobile succeed !');
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error updating mobile");
+      res.status(400).send("Error updating mobile: " + error.message);
    }
 });
 
-//DELETE
+//DELETE EXISTING DATA
 app.delete('/mobile/:id', async (req, res) => {
    try {
       const { id } = req.params;
       const docRef = doc(db, 'mobiles', id);
       await deleteDoc(docRef);
-      res.send(`Mobile with ID ${id} deleted`);
+      res.send("Delete mobile succeed !");
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error deleting mobile");
+      res.status(400).send("Error deleting mobile: " + error.message);
    }
 });
 
-app.listen(3000, () => {
-   console.log("Server is running at port 3000");
-});
+//listen port
+app.listen(3000);
