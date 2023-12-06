@@ -1,80 +1,84 @@
 const express = require('express');
-const cors = require('cors');
 const db = require("./config.js");
 const { collection, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc } = require('firebase/firestore');
 const app = express();
-
 app.use(express.json());
-app.use(cors());
 
-//READ ALL DATA
-app.get('/mobile', async (req, res) => {
+//cors (Cross-Origin Resource Sharing): OPTIONAL (used for API sharing)
+// const cors = require('cors');
+// app.use(cors());
+
+//IMPORTANCE: set collection name
+var collectionName = "mobiles";
+
+//READ COLLECTION
+app.get('/', async (req, res) => {
    try {
-      const mobileRef = collection(db, 'mobiles');  //notes: "mobiles" is collection (table) name
-      const mobileSnapshot = await getDocs(mobileRef);
-      const mobileList = mobileSnapshot.docs.map(doc => doc.data());
-      res.send(mobileList);
+      const collectionRef = collection(db, collectionName);
+      const collectionSnap = await getDocs(collectionRef);
+      const collectionList = collectionSnap.docs.map(doc => doc.data());
+      res.status(200).send(collectionList);
    } catch (error) {
       console.error(error);
-      res.status(500).send("Error fetching mobiles data: " + error.message);
+      res.status(500).send("Error loading collection: " + error.message);
    }
 });
 
-//READ DATA BY ID
-app.get('/mobile/:id', async (req, res) => {
+//READ DOCUMENT
+app.get('/:id', async (req, res) => {
    try {
       const { id } = req.params;
-      const docRef = doc(db, 'mobiles', id);
-      const mobileSnapshot = await getDoc(docRef);
-      if (mobileSnapshot.exists()) {
-         const mobile = mobileSnapshot.data();
-         res.send(mobile);
+      const documentRef = doc(db, collectionName, id);
+      const documentSnap = await getDoc(documentRef);
+      if (documentSnap.exists()) {
+         const documentData = documentSnap.data();
+         res.status(200).send(documentData);
       } else {
-         res.status(404).send("Mobile data not found");
+         res.status(404).send("Document not found !");
       }
    } catch (error) {
       console.error("An error occurred:", error);
-      res.status(500).send("Error fetching mobile data: " + error.message);
+      res.status(500).send("Error loading document: " + error.message);
    }
 });
 
-//CREATE NEW DATA
-app.post('/mobile', async (req, res) => {
+//CREATE DOCUMENT
+app.post('/', async (req, res) => {
    try {
-      const newMobile = req.body;
-      const newDocRef = doc(collection(db, 'mobiles'));
-      await setDoc(newDocRef, newMobile);
-      res.status(201).send("Create new mobile succeed !");
+      const newDoc = req.body;
+      const newDocRef = doc(collection(db, collectionName));
+      await setDoc(newDocRef, newDoc);
+      res.status(201).send("Create document succeed !");
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error creating a new mobile: " + error.message);
+      res.status(400).send("Error creating document: " + error.message);
    }
 });
 
-//UPDATE EXISTING DATA
-app.put('/mobile/:id', async (req, res) => {
+//UPDATE DOCUMENT
+app.put('/:id', async (req, res) => {
    try {
       const { id } = req.params;
       const updatedData = req.body;
-      const docRef = doc(db, 'mobiles', id);
+      const docRef = doc(db, collectionName, id);
       await updateDoc(docRef, updatedData);
-      res.send('Update mobile succeed !');
+      res.status(200).send('Update document succeed !');
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error updating mobile: " + error.message);
+      res.status(400).send("Error updating document: " + error.message);
    }
 });
 
-//DELETE EXISTING DATA
-app.delete('/mobile/:id', async (req, res) => {
+//DELETE DOCUMENT
+app.delete('/:id', async (req, res) => {
    try {
       const { id } = req.params;
-      const docRef = doc(db, 'mobiles', id);
+      const docRef = doc(db, collectionName, id);
       await deleteDoc(docRef);
-      res.send("Delete mobile succeed !");
+      res.status(200).send("Delete document succeed !");
    } catch (error) {
       console.error(error);
-      res.status(400).send("Error deleting mobile: " + error.message);
+      res.status(400).send("Error deleting document: " + error.message);
    }
 });
 
