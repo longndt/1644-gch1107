@@ -16,7 +16,7 @@ app.get('/', async (req, res) => {
    try {
       const collectionRef = collection(db, collectionName);
       const collectionSnap = await getDocs(collectionRef);
-      const collectionList = collectionSnap.docs.map(doc => doc.data());
+      const collectionList = collectionSnap.docs.map(doc => ({id: doc.id, ...doc.data()}));
       res.status(200).send(collectionList);
    } catch (error) {
       console.error(error);
