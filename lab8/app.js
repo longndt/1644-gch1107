@@ -43,7 +43,7 @@ app.get('/:id', async (req, res) => {
 });
 
 //CREATE DOCUMENT
-app.post('/', async (req, res) => {
+app.post('/add', async (req, res) => {
    try {
       const newDoc = req.body;
       const newDocRef = doc(collection(db, collectionName));
@@ -56,7 +56,7 @@ app.post('/', async (req, res) => {
 });
 
 //UPDATE DOCUMENT
-app.put('/:id', async (req, res) => {
+app.put('/update/:id', async (req, res) => {
    try {
       const { id } = req.params;
       const updatedData = req.body;
@@ -70,7 +70,7 @@ app.put('/:id', async (req, res) => {
 });
 
 //DELETE DOCUMENT
-app.delete('/:id', async (req, res) => {
+app.delete('/delete/:id', async (req, res) => {
    try {
       const { id } = req.params;
       const docRef = doc(db, collectionName, id);
